@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();*/
                 Intent intent = new Intent(MainActivity.this, AddContactActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -82,4 +83,5 @@ public class MainActivity extends AppCompatActivity {
                 new SimpleCursorAdapter(this, R.layout.list_view, c, from, to);
         mavariableListView.setAdapter(Contacts);
     }
+
 }

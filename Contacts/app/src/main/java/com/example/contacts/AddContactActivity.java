@@ -37,6 +37,11 @@ public class AddContactActivity extends AppCompatActivity {
         String tel = mavariableEditText.getText().toString();
         NDBA.createContact(prenom,nom,email,tel,adresse,"0");
         startActivity(new Intent(this,MainActivity.class));
+        finish();
+    }
+    public void onBackPressed(){
+        startActivity(new Intent(this,MainActivity.class));
+        finish();
     }
 
 }
