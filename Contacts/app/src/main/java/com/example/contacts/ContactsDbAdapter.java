@@ -15,6 +15,7 @@ public class ContactsDbAdapter {
     public static final String KEY_TEL = "tel";
     public static final String KEY_EMAIL = "email";
     public static final String KEY_POSTALE = "postale";
+    public static final String KEY_FAVORIS = "isfavoris";
 
     private static final String TAG = "ContactsDbAdapter";
     private DatabaseHelper mDbHelper;
@@ -25,7 +26,7 @@ public class ContactsDbAdapter {
      */
     private static final String DATABASE_CREATE =
             "create table contacts (_id integer primary key autoincrement, "
-                    + "prenom text not null, nom text not null, email text not null, tel text not null, postale text not null);";
+                    + "prenom text not null, nom text not null, email text not null, tel text not null, postale text not null, isfavoris integer default 0);";
 
     private static final String DATABASE_NAME = "data";
     private static final String DATABASE_TABLE = "contacts";
@@ -94,13 +95,14 @@ public class ContactsDbAdapter {
      * param body the body of the note
      * return rowId or -1 if failed
      */
-    public long createContact(String prenom, String nom,String email, String tel,String postale) {
+    public long createContact(String prenom, String nom,String email, String tel,String postale,String isfavoris) {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_PRENOM,prenom);
         initialValues.put(KEY_NOM, nom);
         initialValues.put(KEY_TEL, tel);
         initialValues.put(KEY_EMAIL, email);
         initialValues.put(KEY_POSTALE,postale);
+        initialValues.put(KEY_FAVORIS,isfavoris);
 
         return mDb.insert(DATABASE_TABLE, null, initialValues);
     }
@@ -115,7 +117,8 @@ public class ContactsDbAdapter {
         mDb.execSQL("delete from contacts");
         return true;
     }
-    public boolean deleteNote(long rowId) {
+
+    public boolean deleteContact(long rowId) {
         return mDb.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
     }
 
@@ -126,7 +129,7 @@ public class ContactsDbAdapter {
      */
     public Cursor fetchAllContacts() {
         return mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_PRENOM,
-                KEY_NOM,KEY_EMAIL,KEY_POSTALE,KEY_TEL}, null, null, null, null, null);
+                KEY_NOM,KEY_EMAIL,KEY_POSTALE,KEY_TEL,KEY_FAVORIS}, null, null, null, null, null);
     }
 
     /**
@@ -141,7 +144,7 @@ public class ContactsDbAdapter {
         Cursor mCursor =
 
                 mDb.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_PRENOM,
-                                KEY_NOM,KEY_EMAIL,KEY_POSTALE,KEY_TEL}, KEY_ROWID + "=" + rowId, null,
+                                KEY_NOM,KEY_EMAIL,KEY_POSTALE,KEY_TEL,KEY_FAVORIS}, KEY_ROWID + "=" + rowId, null,
                         null, null, null, null);
         if (mCursor != null) {
             mCursor.moveToFirst();
@@ -160,10 +163,27 @@ public class ContactsDbAdapter {
      * param body value to set note body to
      * @return true if the note was successfully updated, false otherwise
      */
-    public boolean updateContact(long rowId, String prenom, String nom) {
+    public boolean updateContact(long rowId, String prenom, String nom, String tel, String email, String postal) {
         ContentValues args = new ContentValues();
         args.put(KEY_PRENOM, prenom);
         args.put(KEY_NOM, nom);
+        args.put(KEY_TEL, tel);
+        args.put(KEY_EMAIL, email);
+        args.put(KEY_POSTALE, postal);
+
+        return mDb.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
+    }
+
+    public boolean setFavoris(long rowId) {
+        ContentValues args = new ContentValues();
+        args.put(KEY_FAVORIS, 1);
+
+        return mDb.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
+    }
+
+    public boolean setDefavoris(long rowId) {
+        ContentValues args = new ContentValues();
+        args.put(KEY_FAVORIS, 0);
 
         return mDb.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
     }

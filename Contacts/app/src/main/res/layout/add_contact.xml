@@ -88,19 +88,20 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/editText_Nom" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="0dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:text="@string/button_enregistrer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittext_email" />
+            <Button
+                android:id="@+id/button"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:onClick="createContact"
+                android:text="@string/button_enregistrer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edittext_email" />
 
             <ImageView
                 android:id="@+id/imageView"
