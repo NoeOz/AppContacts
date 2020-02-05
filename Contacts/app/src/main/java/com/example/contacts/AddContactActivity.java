@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -38,10 +39,16 @@ public class AddContactActivity extends AppCompatActivity {
         NDBA.createContact(prenom,nom,email,tel,adresse,"0");
         startActivity(new Intent(this,MainActivity.class));
         finish();
+        Toast.makeText(getApplicationContext(),"Contact ajouté", Toast.LENGTH_SHORT).show();
     }
     public void onBackPressed(){
         startActivity(new Intent(this,MainActivity.class));
         finish();
+        Toast.makeText(getApplicationContext(),"Rien ajouté",Toast.LENGTH_SHORT).show();
+    }
+    public void setImage(View view)
+    {
+        Toast.makeText(getApplicationContext(),"En developpement",Toast.LENGTH_SHORT).show();
     }
 
 }
