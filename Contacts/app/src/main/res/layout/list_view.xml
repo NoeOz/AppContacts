@@ -3,6 +3,8 @@
     android:id="@+id/text1"
     android:layout_width="match_parent"
     android:layout_height="52dp"
+    android:layout_alignWithParentIfMissing="true"
     android:layout_gravity="center_vertical"
+    android:drawableLeft="@mipmap/ic_test_foreground"
     android:textColor="@color/design_default_color_primary_dark"
-    android:textSize="18sp" />
+    android:textSize="24sp" />

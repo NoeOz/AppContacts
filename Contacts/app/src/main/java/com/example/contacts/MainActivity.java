@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -75,9 +76,10 @@ public class MainActivity extends AppCompatActivity {
         Cursor c = NDBA.fetchAllContacts();
         startManagingCursor(c);
 
-        String[] from = new String[] { ContactsDbAdapter.KEY_PRENOM };
+        String[] from = new String[] { ContactsDbAdapter.KEY_PRENOM};
         int[] to = new int[] {R.id.text1};
-
+       // TextView textView = (TextView) findViewById(R.id.text1);
+        //textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_ajouter_background, 0, 0, 0);
         // Now create an array adapter and set it to display using our row
         SimpleCursorAdapter Contacts =
                 new SimpleCursorAdapter(this, R.layout.list_view, c, from, to);
