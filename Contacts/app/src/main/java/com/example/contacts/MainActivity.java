@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -75,8 +76,8 @@ public class MainActivity extends AppCompatActivity {
         // Get all of the notes from the database and create the item list
         Cursor c = NDBA.fetchAllContacts();
         startManagingCursor(c);
-
-        String[] from = new String[] { ContactsDbAdapter.KEY_PRENOM};
+        Toast.makeText(getApplicationContext(),ContactsDbAdapter.KEY_PRENOM,Toast.LENGTH_SHORT).show();
+        String[] from = new String[] { ContactsDbAdapter.KEY_NAME};
         int[] to = new int[] {R.id.text1};
        // TextView textView = (TextView) findViewById(R.id.text1);
         //textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_ajouter_background, 0, 0, 0);

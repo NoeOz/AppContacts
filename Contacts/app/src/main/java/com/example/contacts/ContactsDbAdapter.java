@@ -16,6 +16,7 @@ public class ContactsDbAdapter {
     public static final String KEY_EMAIL = "email";
     public static final String KEY_POSTALE = "postale";
     public static final String KEY_FAVORIS = "isfavoris";
+    public static final String KEY_NAME = "name";
 
     private static final String TAG = "ContactsDbAdapter";
     private DatabaseHelper mDbHelper;
@@ -26,7 +27,7 @@ public class ContactsDbAdapter {
      */
     private static final String DATABASE_CREATE =
             "create table contacts (_id integer primary key autoincrement, "
-                    + "prenom text not null, nom text not null, email text not null, tel text not null, postale text not null, isfavoris integer default 0);";
+                    + "prenom text not null, nom text not null,name text not null, email text not null, tel text not null, postale text not null, isfavoris integer default 0);";
 
     private static final String DATABASE_NAME = "data";
     private static final String DATABASE_TABLE = "contacts";
@@ -96,10 +97,12 @@ public class ContactsDbAdapter {
      * return rowId or -1 if failed
      */
     public long createContact(String prenom, String nom,String email, String tel,String postale,String isfavoris) {
+        String name=nom+" "+prenom;
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_PRENOM,prenom);
         initialValues.put(KEY_NOM, nom);
         initialValues.put(KEY_TEL, tel);
+        initialValues.put(KEY_NAME, name);
         initialValues.put(KEY_EMAIL, email);
         initialValues.put(KEY_POSTALE,postale);
         initialValues.put(KEY_FAVORIS,isfavoris);
@@ -129,7 +132,7 @@ public class ContactsDbAdapter {
      */
     public Cursor fetchAllContacts() {
         return mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_PRENOM,
-                KEY_NOM,KEY_EMAIL,KEY_POSTALE,KEY_TEL,KEY_FAVORIS}, null, null, null, null, null);
+                KEY_NOM,KEY_NAME,KEY_EMAIL,KEY_POSTALE,KEY_TEL,KEY_FAVORIS}, null, null, null, null, null);
     }
 
     /**
@@ -144,7 +147,7 @@ public class ContactsDbAdapter {
         Cursor mCursor =
 
                 mDb.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_PRENOM,
-                                KEY_NOM,KEY_EMAIL,KEY_POSTALE,KEY_TEL,KEY_FAVORIS}, KEY_ROWID + "=" + rowId, null,
+                                KEY_NOM,KEY_NAME,KEY_EMAIL,KEY_POSTALE,KEY_TEL,KEY_FAVORIS}, KEY_ROWID + "=" + rowId, null,
                         null, null, null, null);
         if (mCursor != null) {
             mCursor.moveToFirst();
@@ -164,9 +167,11 @@ public class ContactsDbAdapter {
      * @return true if the note was successfully updated, false otherwise
      */
     public boolean updateContact(long rowId, String prenom, String nom, String tel, String email, String postal) {
+        String name=nom+" "+prenom;
         ContentValues args = new ContentValues();
         args.put(KEY_PRENOM, prenom);
         args.put(KEY_NOM, nom);
+        args.put(KEY_NAME,name);
         args.put(KEY_TEL, tel);
         args.put(KEY_EMAIL, email);
         args.put(KEY_POSTALE, postal);
