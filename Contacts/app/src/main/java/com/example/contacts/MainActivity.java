@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.add(0, v.getId(), 0, "Appeler");
-        menu.add(0, v.getId(), 0, "Envoyer une message");
+        menu.add(0, v.getId(), 0, "Envoyer un message");
         menu.add(0, v.getId(), 0, "Supprimer");
         menu.add(0, v.getId(), 0, "Ajouter aux favorits");
     }
@@ -148,11 +148,15 @@ public class MainActivity extends AppCompatActivity {
 
         if(item.getTitle() == "Appeler")
         {
-            dialPhoneNumber("0627999076");
+            Cursor contact = NDBA.fetchContact(info.id);
+            dialPhoneNumber(contact.getString(6));
         }
-        else if(item.getTitle() == "Envoyer une message")
+        else if(item.getTitle() == "Envoyer un message")
         {
-
+            Cursor contact = NDBA.fetchContact(info.id);
+            Uri sms_uri = Uri.parse("smsto:"+contact.getString(6));
+            Intent sms_intent = new Intent(Intent.ACTION_SENDTO, sms_uri);
+            startActivity(sms_intent);
         }
         else if(item.getTitle() == "Supprimer")
         {
