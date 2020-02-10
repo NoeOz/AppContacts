@@ -1,6 +1,8 @@
 package com.example.contacts;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -127,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.add(0, v.getId(), 0, "Appeler");
         menu.add(0, v.getId(), 0, "Envoyer une message");
-        menu.add(0, v.getId(), 0, "Suprimer");
+        menu.add(0, v.getId(), 0, "Supprimer");
         menu.add(0, v.getId(), 0, "Ajouter aux favorits");
     }
 
@@ -154,8 +156,20 @@ public class MainActivity extends AppCompatActivity {
         }
         else if(item.getTitle() == "Supprimer")
         {
-            NDBA.deleteContact(info.id);
-            Toast.makeText(getApplicationContext(), "Contact supprimé", Toast.LENGTH_SHORT).show();
+            final long contactToDelete = info.id;
+            new AlertDialog.Builder(MainActivity.this)
+                    .setMessage("Voulez-vous vraiment supprimer ce contact ?")
+                    .setTitle("Confirmation")
+                    .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            NDBA.deleteContact(contactToDelete);
+                            Toast.makeText(getApplicationContext(), "Contact supprimé", Toast.LENGTH_SHORT).show();
+                            fillData(typeOfContent);
+                        }
+                    })
+                    .setNegativeButton("Non", null)
+                    // Create the AlertDialog object and return it
+                    .show();
         }
         else//favorits
         {
