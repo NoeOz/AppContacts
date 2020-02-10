@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">الاتصالات</string>
+    <string name="text_prenom">الأسم الأول</string>
+    <string name="text_nom">اسم عائلة</string>
+    <string name="text_adresse">عنوان</string>
+    <string name="text_numero">رقم الهاتف</string>
+    <string name="text_email">البريد الإلكتروني</string>
+    <string name="button_enregistrer">سجل</string>
+    <string name="app_add_title">إضافة جهة اتصال</string>
+    <string name="button_annuler">إلغاء</string>
+    <string name="text_appel">دعوة</string>
+    <string name="text_envmsg">إرسال رسالة</string>
+    <string name="showAllContacts">إظهار جميع جهات الاتصال</string>
+    <string name="showFavoritesContacts">عرض المفضلة</string>
+</resources>

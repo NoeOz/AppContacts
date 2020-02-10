@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Contactos</string>
+    <string name="text_prenom">Nombre</string>
+    <string name="text_nom">Apellidos</string>
+    <string name="text_adresse">Direccion</string>
+    <string name="text_numero">Número de teléfono</string>
+    <string name="text_email">Email</string>
+    <string name="button_enregistrer">Guardar</string>
+    <string name="app_add_title">Crear contacto</string>
+    <string name="button_annuler">Cancelar</string>
+    <string name="text_appel">Llamar</string>
+    <string name="text_envmsg">Enviar mensaje</string>
+    <string name="showAllContacts">Ver todos los contactos</string>
+    <string name="showFavoritesContacts">Ver favoritos</string>
+</resources>
