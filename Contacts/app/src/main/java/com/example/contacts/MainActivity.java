@@ -127,8 +127,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean onContextItemSelected(MenuItem item) {
-
-
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
         if (item.getTitle() == "Profil") {
@@ -151,7 +149,6 @@ public class MainActivity extends AppCompatActivity {
         {
 
         }
-
         return super.onContextItemSelected(item);
     }
 
