@@ -15,7 +15,7 @@
     <option name="x" value="200" />
     <option name="y" value="105" />
     <option name="width" value="1200" />
-    <option name="height" value="648" />
+    <option name="height" value="649" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -34,12 +34,33 @@
               <item name="AppContacts" type="462c0819:PsiDirectoryNode" />
               <item name="Contacts" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="AppContacts" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AppContacts" type="462c0819:PsiDirectoryNode" />
+              <item name="Contacts" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AppContacts" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AppContacts" type="462c0819:PsiDirectoryNode" />
+              <item name="Contacts" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AppContacts" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AppContacts" type="462c0819:PsiDirectoryNode" />
+              <item name="Contacts" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -72,10 +93,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
     <layout>
       <window_info id="Captures" order="0" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.17966281" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.17911434" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Designer" order="4" />

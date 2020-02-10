@@ -9,4 +9,6 @@
     <string name="button_enregistrer">Enregistrer</string>
     <string name="app_add_title">Ajouter contact</string>
     <string name="button_annuler">Annuler</string>
+    <string name="text_appel">Appeler</string>
+    <string name="text_envmsg">Envoier message</string>
 </resources>
