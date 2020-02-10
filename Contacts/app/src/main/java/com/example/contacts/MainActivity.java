@@ -152,9 +152,10 @@ public class MainActivity extends AppCompatActivity {
         {
 
         }
-        else if(item.getTitle() == "Suprimer")
+        else if(item.getTitle() == "Supprimer")
         {
-
+            NDBA.deleteContact(info.id);
+            Toast.makeText(getApplicationContext(), "Contact supprimé", Toast.LENGTH_SHORT).show();
         }
         else//favorits
         {
