@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import net.glxn.qrgen.android.QRCode;
+
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -35,5 +37,26 @@ public class ProfileActivity extends AppCompatActivity {
     }
     public void appeler(View view){
         dialPhoneNumber("01212121212");
+    }
+
+    public void mapscontact(View view)
+    {
+        Uri location = Uri.parse("geo:0,0?q=" + "datos");
+        Intent mapintent = new Intent(Intent.ACTION_VIEW,location);
+        startActivity(mapintent);
+    }
+
+    public void message(View view)
+    {
+        Uri sms_uri = Uri.parse("smsto:"+"08555555555");
+        Intent sms_intent = new Intent(Intent.ACTION_SENDTO, sms_uri);
+        startActivity(sms_intent);
+    }
+
+    public void envemail(View view)
+    {
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto","correo@gmail.com", null));
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Android APP - ");
+        startActivity(emailIntent);
     }
 }
