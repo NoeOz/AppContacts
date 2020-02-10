@@ -135,6 +135,11 @@ public class ContactsDbAdapter {
                 KEY_NOM,KEY_NAME,KEY_EMAIL,KEY_POSTALE,KEY_TEL,KEY_FAVORIS}, null, null, null, null, null);
     }
 
+    public Cursor fetchAllFavoritesContacts() {
+        return mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_PRENOM,
+                KEY_NOM,KEY_NAME,KEY_EMAIL,KEY_POSTALE,KEY_TEL,KEY_FAVORIS}, KEY_FAVORIS + "=" + 1, null, null, null, null);
+    }
+
     /**
      * Return a Cursor positioned at the note that matches the given rowId
      *

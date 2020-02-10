@@ -33,9 +33,8 @@ import java.util.ArrayList;
 import static java.net.Proxy.Type.HTTP;
 
 public class MainActivity extends AppCompatActivity {
-    private static final boolean TODO = false;
-    private ArrayAdapter<String> aa;
-    private ArrayList<String> todoItems;
+    //0 pour afficher tous les contacts et 1 pour les favoris
+    private int typeOfContent = 0;
     private ContactsDbAdapter NDBA;
     private int mNoteNumber = 1;
     private int listView;
@@ -47,12 +46,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        listContacts = (android.widget.ListView)findViewById(R.id.listContacts);
         setSupportActionBar(toolbar);
         NDBA = new ContactsDbAdapter(this);
         NDBA.open();
-        fillData();
+        fillData(typeOfContent);
 
-        listContacts = (android.widget.ListView)findViewById(R.id.listContacts);
         registerForContextMenu(listContacts);
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -64,6 +63,13 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, AddContactActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+        listContacts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int  position, long id) {
+                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                intent.putExtra("IdContact",id);
+                startActivity(intent);
             }
         });
     }
@@ -83,19 +89,29 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.showAllContacts) {
+            typeOfContent = 0 ;
+            fillData(typeOfContent);
+        }
+        if (id == R.id.showFavoritesContacts) {
+            typeOfContent = 1 ;
+            fillData(typeOfContent);
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void fillData() {
-        ListView mavariableListView = (ListView) findViewById(R.id.listContacts);
+    private void fillData(int typeOfContent) {
+        //ListView mavariableListView = (ListView) findViewById(R.id.listContacts);
         // Get all of the notes from the database and create the item list
-        Cursor c = NDBA.fetchAllContacts();
+        Cursor c = null;
+        if(typeOfContent == 0)
+            c = NDBA.fetchAllContacts();
+        else
+            c = NDBA.fetchAllFavoritesContacts();
+
         startManagingCursor(c);
-        Toast.makeText(getApplicationContext(), ContactsDbAdapter.KEY_PRENOM, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), ContactsDbAdapter.KEY_PRENOM, Toast.LENGTH_SHORT).show();
         String[] from = new String[]{ContactsDbAdapter.KEY_NAME};
         int[] to = new int[]{R.id.text1};
         // TextView textView = (TextView) findViewById(R.id.text1);
@@ -103,13 +119,12 @@ public class MainActivity extends AppCompatActivity {
         // Now create an array adapter and set it to display using our row
         SimpleCursorAdapter Contacts =
                 new SimpleCursorAdapter(this, R.layout.list_view, c, from, to);
-        mavariableListView.setAdapter(Contacts);
+        listContacts.setAdapter(Contacts);
     }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(0, v.getId(), 0, "Profil");
         menu.add(0, v.getId(), 0, "Appeler");
         menu.add(0, v.getId(), 0, "Envoyer une message");
         menu.add(0, v.getId(), 0, "Suprimer");
@@ -129,11 +144,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
-        if (item.getTitle() == "Profil") {
-            Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-            startActivity(intent);
-        }
-        else if(item.getTitle() == "Appeler")
+        if(item.getTitle() == "Appeler")
         {
             dialPhoneNumber("0627999076");
         }
@@ -147,7 +158,8 @@ public class MainActivity extends AppCompatActivity {
         }
         else//favorits
         {
-
+            NDBA.setFavoris(info.id);
+            Toast.makeText(getApplicationContext(), "Contact ajouté aux Favoris", Toast.LENGTH_SHORT).show();
         }
         return super.onContextItemSelected(item);
     }
