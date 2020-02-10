@@ -127,20 +127,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        Cursor contact = NDBA.fetchContact(info.id);
         menu.add(0, v.getId(), 0, "Appeler");
         menu.add(0, v.getId(), 0, "Envoyer un message");
+        if (contact.getInt(7) == 0)
+            menu.add(0, v.getId(), 0, "Ajouter aux favorits");
+        else
+            menu.add(0, v.getId(), 0, "Supprimer du favorits");
+        menu.add(0, v.getId(), 0, "Modifier");
         menu.add(0, v.getId(), 0, "Supprimer");
-        menu.add(0, v.getId(), 0, "Ajouter aux favorits");
-    }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-
-    public void dialPhoneNumber(String phoneNumber) {
-        Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:" + phoneNumber));
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
-        }
     }
 
     public boolean onContextItemSelected(MenuItem item) {
@@ -149,7 +146,9 @@ public class MainActivity extends AppCompatActivity {
         if(item.getTitle() == "Appeler")
         {
             Cursor contact = NDBA.fetchContact(info.id);
-            dialPhoneNumber(contact.getString(6));
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:" + contact.getString(6)));
+            startActivity(intent);
         }
         else if(item.getTitle() == "Envoyer un message")
         {
@@ -175,10 +174,25 @@ public class MainActivity extends AppCompatActivity {
                     // Create the AlertDialog object and return it
                     .show();
         }
-        else//favorits
+        else if(item.getTitle() == "Ajouter aux favorits")
         {
             NDBA.setFavoris(info.id);
             Toast.makeText(getApplicationContext(), "Contact ajouté aux Favoris", Toast.LENGTH_SHORT).show();
+            fillData(typeOfContent);
+        }
+
+        else if(item.getTitle() == "Supprimer du favorits")
+        {
+            NDBA.setDefavoris(info.id);
+            Toast.makeText(getApplicationContext(), "Contact supprimé du Favoris", Toast.LENGTH_SHORT).show();
+            fillData(typeOfContent);
+        }
+
+        else if(item.getTitle() == "Modifier")
+        {
+            Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+            intent.putExtra("IdContact",info.id);
+            startActivity(intent);
         }
         return super.onContextItemSelected(item);
     }
