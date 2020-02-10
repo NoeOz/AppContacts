@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         listContacts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int  position, long id) {
                 Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-                intent.putExtra("IdContact",id);
+                intent.putExtra("idContact",id);
                 startActivity(intent);
             }
         });

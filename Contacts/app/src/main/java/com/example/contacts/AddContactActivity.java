@@ -17,11 +17,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class AddContactActivity extends AppCompatActivity {
-    private ArrayAdapter<String> aa;
-    private ArrayList<String> todoItems;
+
     private ContactsDbAdapter NDBA;
-    private int mNoteNumber = 1;
-    private int listView;
     EditText mavariableEditTextPrenom;
     EditText mavariableEditTextNom;
     EditText mavariableEditTextEmail;
