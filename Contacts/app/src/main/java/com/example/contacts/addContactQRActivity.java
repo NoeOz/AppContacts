@@ -119,6 +119,14 @@ public class addContactQRActivity extends AppCompatActivity {
                         Log.i("token", token);
 
                         //Actions afficer contact deja obtenue
+                        String []valeurs = token.split(":");
+                        Intent intent = new Intent(addContactQRActivity.this, AddContactActivity.class);
+                        intent.putExtra("nomContact",valeurs[0]);
+                        intent.putExtra("prenomContact",valeurs[1]);
+                        intent.putExtra("telContact",valeurs[2]);
+                        intent.putExtra("emailContact",valeurs[3]);
+                        intent.putExtra("adresseContact",valeurs[4]);
+                        startActivity(intent);
 
                         new Thread(new Runnable() {
                             public void run() {

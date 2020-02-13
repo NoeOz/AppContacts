@@ -58,6 +58,14 @@ public class AddContactActivity extends AppCompatActivity {
             mavariableEditTextTel.setText(contact.getString(6));
         }
 
+        if (intent.hasExtra("nomContact")){
+            mavariableEditTextPrenom.setText(intent.getStringExtra("prenomContact"));
+            mavariableEditTextNom.setText(intent.getStringExtra("nomContact"));
+            mavariableEditTextEmail.setText(intent.getStringExtra("emailContact"));
+            mavariableEditTextAdresse.setText(intent.getStringExtra("adresseContact"));
+            mavariableEditTextTel.setText(intent.getStringExtra("telContact"));
+        }
+
         mavariableEditTextTel.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
