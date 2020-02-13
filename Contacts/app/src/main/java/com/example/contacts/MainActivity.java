@@ -99,6 +99,10 @@ public class MainActivity extends AppCompatActivity {
             typeOfContent = 1 ;
             fillData(typeOfContent);
         }
+        if (id == R.id.addContactQR) {
+            Intent intent = new Intent(MainActivity.this, addContactQRActivity.class);
+            startActivity(intent);
+        }
 
         return super.onOptionsItemSelected(item);
     }

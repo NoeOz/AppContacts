@@ -12,4 +12,9 @@
         android:orderInCategory="100"
         android:title="@string/showFavoritesContacts"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/addContactQR"
+        android:orderInCategory="100"
+        android:title="Ajouter un contact par code QR"
+        app:showAsAction="never" />
 </menu>
