@@ -88,7 +88,7 @@
         android:onClick="envemail"
         app:layout_constraintStart_toEndOf="@+id/imageView8"
         app:layout_constraintTop_toBottomOf="@+id/fullName"
-        app:srcCompat="@mipmap/ic_dir_email_foreground" />
+        app:srcCompat="@mipmap/ic_lemail_foreground" />
 
     <ImageView
         android:id="@+id/codeQR"
