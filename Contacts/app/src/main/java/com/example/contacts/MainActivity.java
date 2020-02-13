@@ -190,8 +190,8 @@ public class MainActivity extends AppCompatActivity {
 
         else if(item.getTitle() == "Modifier")
         {
-            Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-            intent.putExtra("IdContact",info.id);
+            Intent intent = new Intent(MainActivity.this, AddContactActivity.class);
+            intent.putExtra("idContact",info.id);
             startActivity(intent);
         }
         return super.onContextItemSelected(item);

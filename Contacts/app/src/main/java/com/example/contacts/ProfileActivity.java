@@ -21,7 +21,6 @@ public class ProfileActivity extends AppCompatActivity {
 
     private long idContact;
     private String nom;
-    private String prenom;
     private String tel;
     private String email;
     private String postal;
@@ -54,14 +53,13 @@ public class ProfileActivity extends AppCompatActivity {
             idContact = intent.getLongExtra("idContact",0);
         }
         Cursor contact = NDBA.fetchContact(idContact);
-        nom = contact.getString(2);
-        prenom = contact.getString(1);
+        nom = contact.getString(3);
         tel = contact.getString(6);
         email = contact.getString(4);
         postal = contact.getString(5);
         isFavoris = contact.getInt(7);
 
-        viewName.setText(nom+" "+prenom);
+        viewName.setText(nom);
         viewTel.setText(tel);
         viewEmail.setText(email);
         viewPostal.setText(postal);
@@ -121,5 +119,11 @@ public class ProfileActivity extends AppCompatActivity {
             isFavoris=0;
             viewFavorits.setImageResource(R.mipmap.ic_starvide_foreground);
         }
+    }
+
+    public void modifier(View view){
+        Intent intent = new Intent(ProfileActivity.this, AddContactActivity.class);
+        intent.putExtra("idContact",idContact);
+        startActivity(intent);
     }
 }

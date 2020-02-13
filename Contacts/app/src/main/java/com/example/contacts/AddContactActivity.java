@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -26,6 +28,8 @@ public class AddContactActivity extends AppCompatActivity {
     EditText mavariableEditTextTel;
     TextView errorTel;
     TextView errorEmail;
+    private int ifModifier = 0;
+    Cursor contact = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,20 @@ public class AddContactActivity extends AppCompatActivity {
         mavariableEditTextTel= (EditText) findViewById(R.id.edittext_Tel);
         errorTel = (TextView) findViewById(R.id.fTel);
         errorEmail = (TextView) findViewById(R.id.fEmail);
+
+
+
+        Intent intent = getIntent();
+        if (intent.hasExtra("idContact")){
+            ifModifier = 1;
+            contact = NDBA.fetchContact(intent.getLongExtra("idContact",0));
+            mavariableEditTextPrenom.setText(contact.getString(1));
+            mavariableEditTextNom.setText(contact.getString(2));
+            mavariableEditTextEmail.setText(contact.getString(4));
+            mavariableEditTextAdresse.setText(contact.getString(5));
+            mavariableEditTextTel.setText(contact.getString(6));
+        }
+
         mavariableEditTextTel.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -76,6 +94,8 @@ public class AddContactActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
     public void createContact(View view) {
 
@@ -113,17 +133,25 @@ public class AddContactActivity extends AppCompatActivity {
                         .show();
             }
             else {
-                NDBA.createContact(prenom, nom, email, tel, adresse, "0");
-                startActivity(new Intent(this, MainActivity.class));
-                finish();
-                Toast.makeText(getApplicationContext(), "Contact ajouté", Toast.LENGTH_SHORT).show();
+                if(ifModifier==0){
+                    NDBA.createContact(prenom, nom, email, tel, adresse, "0");
+                    startActivity(new Intent(this, MainActivity.class));
+                    finish();
+                    Toast.makeText(getApplicationContext(), "Contact ajouté", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    NDBA.updateContact(contact.getLong(0),prenom, nom, tel, email, adresse);
+                    startActivity(new Intent(this, MainActivity.class));
+                    finish();
+                    Toast.makeText(getApplicationContext(), "Contact modifié", Toast.LENGTH_SHORT).show();
+                }
+
             }
         }
     }
     public void onBackPressed(){
         startActivity(new Intent(this,MainActivity.class));
         finish();
-        Toast.makeText(getApplicationContext(),"Rien ajouté",Toast.LENGTH_SHORT).show();
     }
     public void setImage(View view)
     {
