@@ -45,30 +45,30 @@ public class addContactQRActivity extends AppCompatActivity {
 
     public void initQR() {
 
-        // creo el detector qr
+        // creation detecteur QR
         BarcodeDetector barcodeDetector =
                 new BarcodeDetector.Builder(this)
                         .setBarcodeFormats(Barcode.ALL_FORMATS)
                         .build();
 
-        // creo la camara
+        // creation de l'apareil photo
         cameraSource = new CameraSource
                 .Builder(this, barcodeDetector)
                 .setRequestedPreviewSize(1600, 1024)
                 .setAutoFocusEnabled(true) //you should add this feature
                 .build();
 
-        // listener de ciclo de vida de la camara
+        // listener de l'apareil photo
         cameraView.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
 
-                // verifico si el usuario dio los permisos para la camara
+                // verifier les permisions d'user pour utiliser l'apareil photo
                 if (ActivityCompat.checkSelfPermission(addContactQRActivity.this, Manifest.permission.CAMERA)
                         != PackageManager.PERMISSION_GRANTED) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        // verificamos la version de ANdroid que sea al menos la M para mostrar
-                        // el dialog de la solicitud de la camara
+                        // verification de la version de ANdroid il faut la M pour montrer
+                        // Dialog solicitation de l'apareil photo
                         if (shouldShowRequestPermissionRationale(
                                 Manifest.permission.CAMERA)) ;
                         requestPermissions(new String[]{Manifest.permission.CAMERA},
@@ -94,7 +94,7 @@ public class addContactQRActivity extends AppCompatActivity {
             }
         });
 
-        // preparo el detector de QR
+        // Preparation de detecteur QR
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
             @Override
             public void release() {
@@ -107,31 +107,18 @@ public class addContactQRActivity extends AppCompatActivity {
 
                 if (barcodes.size() > 0) {
 
-                    // obtenemos el token
+                    // obtnir le token
                     token = barcodes.valueAt(0).displayValue.toString();
 
-                    // verificamos que el token anterior no se igual al actual
-                    // esto es util para evitar multiples llamadas empleando el mismo token
+                    // verification de toker, il doit pas etre egail à le dernier
+                    // important car on evite d'utiliser le token d'avant
                     if (!token.equals(tokenanterior)) {
 
-                        // guardamos el ultimo token proceado
+                        // eregistrer le dernier token
                         tokenanterior = token;
                         Log.i("token", token);
 
-                        if (URLUtil.isValidUrl(token)) {
-                            // si es una URL valida abre el navegador
-                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(token));
-                            //startActivity(browserIntent);
-                            Log.v("hhghg","hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"+token);
-                        } else {
-                            // comparte en otras apps
-                            Intent shareIntent = new Intent();
-                            shareIntent.setAction(Intent.ACTION_SEND);
-                            shareIntent.putExtra(Intent.EXTRA_TEXT, token);
-                            shareIntent.setType("text/plain");
-                            startActivity(shareIntent);
-                            Log.v("hhghg","hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"+token);
-                        }
+                        //Actions afficer contact deja obtenue
 
                         new Thread(new Runnable() {
                             public void run() {
