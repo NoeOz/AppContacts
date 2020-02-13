@@ -59,10 +59,10 @@ public class AddContactActivity extends AppCompatActivity {
         }
 
         if (intent.hasExtra("nomContact")){
-            mavariableEditTextPrenom.setText(intent.getStringExtra("prenomContact"));
+            mavariableEditTextPrenom.setText(intent.getStringExtra("prenomContact").equals("NULL") ? "" : intent.getStringExtra("prenomContact"));
             mavariableEditTextNom.setText(intent.getStringExtra("nomContact"));
-            mavariableEditTextEmail.setText(intent.getStringExtra("emailContact"));
-            mavariableEditTextAdresse.setText(intent.getStringExtra("adresseContact"));
+            mavariableEditTextEmail.setText(intent.getStringExtra("emailContact").equals("NULL") ? "" : intent.getStringExtra("emailContact"));
+            mavariableEditTextAdresse.setText(intent.getStringExtra("adresseContact").equals("NULL") ? "" : intent.getStringExtra("adresseContact"));
             mavariableEditTextTel.setText(intent.getStringExtra("telContact"));
         }
 

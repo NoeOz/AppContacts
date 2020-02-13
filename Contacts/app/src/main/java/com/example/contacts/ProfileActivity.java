@@ -63,7 +63,7 @@ public class ProfileActivity extends AppCompatActivity {
         postal = contact.getString(5);
         isFavoris = contact.getInt(7);
 
-        QRCodeText = nom+":"+prenom+":"+tel+":"+email+":"+postal;
+        QRCodeText = nom+":"+(prenom.equals("") ? "NULL" : prenom)+":"+tel+":"+(email.equals("") ? "NULL" : email)+":"+(postal.equals("") ? "NULL" : postal);
 
 
         viewName.setText(nom+" "+prenom);
