@@ -90,26 +90,26 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
     public void appeler(View view){
-        dialPhoneNumber("01212121212");
+        dialPhoneNumber(tel);
     }
 
     public void mapscontact(View view)
     {
-        Uri location = Uri.parse("geo:0,0?q=" + "datos");
+        Uri location = Uri.parse("geo:0,0?q=" + postal);
         Intent mapintent = new Intent(Intent.ACTION_VIEW,location);
         startActivity(mapintent);
     }
 
     public void message(View view)
     {
-        Uri sms_uri = Uri.parse("smsto:"+"08555555555");
+        Uri sms_uri = Uri.parse("smsto:" + tel);
         Intent sms_intent = new Intent(Intent.ACTION_SENDTO, sms_uri);
         startActivity(sms_intent);
     }
 
     public void envemail(View view)
     {
-        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto","correo@gmail.com", null));
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto",email, null));
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Android APP - ");
         startActivity(emailIntent);
     }
