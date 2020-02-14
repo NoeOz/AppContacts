@@ -12,4 +12,19 @@
     <string name="text_envmsg">Envoier message</string>
     <string name="showAllContacts">Afficher tous les Contacts</string>
     <string name="showFavoritesContacts">Afficher les Favoris</string>
+    <string name="error_num">Vous devez respecter la forme du Numéro</string>
+    <string name="email_error">Email incorrecte ! exemple : qlqchose@qlqchose.qlqchose</string>
+    <string name="error_champs">Vous devez au moins renseigner les champs Nom et Numéro de téléphone !</string>
+    <string name="error_corr">Il y\'a des erreur que vous devez corriger !</string>
+    <string name="contact_add">Contact ajouté</string>
+    <string name="contact_edit">Contact modifié</string>
+    <string name="add_fav">Ajouter aux favorits</string>
+    <string name="sup_fav">Supprimer du favorits</string>
+    <string name="text_mod">Modifier</string>
+    <string name="text_sup">Supprimer</string>
+    <string name="confir_supp">Voulez-vous vraiment supprimer ce contact ?</string>
+    <string name="rep_oui">Oui</string>
+    <string name="text_suppcont">Contact supprimé</string>
+    <string name="conf_supfav">Contact supprimé du favorits</string>
+    <string name="confi_addfav">Contact ajouté aux favorits</string>
 </resources>

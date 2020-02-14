@@ -119,13 +119,13 @@ public class ProfileActivity extends AppCompatActivity {
             NDBA.setFavoris(idContact);
             isFavoris=1;
             viewFavorits.setImageResource(R.mipmap.ic_star_foreground);
-            Toast.makeText(getApplicationContext(), "Contact ajouté aux Favoris", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.confi_addfav), Toast.LENGTH_SHORT).show();
         }
         else{
             NDBA.setDefavoris(idContact);
             isFavoris=0;
             viewFavorits.setImageResource(R.mipmap.ic_starvide_foreground);
-            Toast.makeText(getApplicationContext(), "Contact supprimé du Favoris", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.conf_supfav), Toast.LENGTH_SHORT).show();
         }
     }
 

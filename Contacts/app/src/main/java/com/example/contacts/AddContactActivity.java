@@ -74,7 +74,7 @@ public class AddContactActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(!(mavariableEditTextTel.getText().toString().matches("0[0-9]{9,9}")))
-                    errorTel.setText("Vous devez respecter la forme du Numéro");
+                    errorTel.setText(getString(R.string.error_num));
                 else{
                     errorTel.setText("");
                 }
@@ -92,7 +92,7 @@ public class AddContactActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(!(mavariableEditTextEmail.getText().toString().matches("^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")))
-                    errorEmail.setText("Email incorrecte ! exemple : qlqchose@qlqchose.qlqchose");
+                    errorEmail.setText(getString(R.string.email_error));
                 else{
                     errorEmail.setText("");
                 }
@@ -116,7 +116,7 @@ public class AddContactActivity extends AppCompatActivity {
         if(nom.length()==0 || tel.length()==0){
             new AlertDialog.Builder(AddContactActivity.this)
                     .setTitle("Attention")
-                    .setMessage("Vous devez au moins renseigner les champs Nom et Numéro de téléphone !")
+                    .setMessage(getString(R.string.error_champs))
 
                     // Specifying a listener allows you to take an action before dismissing the dialog.
                     // The dialog is automatically dismissed when a dialog button is clicked.
@@ -130,7 +130,7 @@ public class AddContactActivity extends AppCompatActivity {
             if(errorTel.getText().toString().length()!=0 || errorEmail.getText().toString().length()!=0){
                 new AlertDialog.Builder(AddContactActivity.this)
                         .setTitle("Attention")
-                        .setMessage("Il y'a des erreur que vous devez corriger !")
+                        .setMessage(getString(R.string.error_corr))
 
                         // Specifying a listener allows you to take an action before dismissing the dialog.
                         // The dialog is automatically dismissed when a dialog button is clicked.
@@ -145,13 +145,13 @@ public class AddContactActivity extends AppCompatActivity {
                     NDBA.createContact(prenom, nom, email, tel, adresse, "0");
                     startActivity(new Intent(this, MainActivity.class));
                     finish();
-                    Toast.makeText(getApplicationContext(), "Contact ajouté", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.contact_add), Toast.LENGTH_SHORT).show();
                 }
                 else {
                     NDBA.updateContact(contact.getLong(0),prenom, nom, tel, email, adresse);
                     startActivity(new Intent(this, MainActivity.class));
                     finish();
-                    Toast.makeText(getApplicationContext(), "Contact modifié", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.contact_edit), Toast.LENGTH_SHORT).show();
                 }
 
             }

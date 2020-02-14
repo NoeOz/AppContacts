@@ -133,66 +133,66 @@ public class MainActivity extends AppCompatActivity {
         super.onCreateContextMenu(menu, v, menuInfo);
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
         Cursor contact = NDBA.fetchContact(info.id);
-        menu.add(0, v.getId(), 0, "Appeler");
-        menu.add(0, v.getId(), 0, "Envoyer un message");
+        menu.add(0, v.getId(), 0, getString(R.string.text_appel));
+        menu.add(0, v.getId(), 0, getString(R.string.text_envmsg));
         if (contact.getInt(7) == 0)
-            menu.add(0, v.getId(), 0, "Ajouter aux favorits");
+            menu.add(0, v.getId(), 0, getString(R.string.add_fav));
         else
-            menu.add(0, v.getId(), 0, "Supprimer du favorits");
-        menu.add(0, v.getId(), 0, "Modifier");
-        menu.add(0, v.getId(), 0, "Supprimer");
+            menu.add(0, v.getId(), 0, getString(R.string.sup_fav));
+        menu.add(0, v.getId(), 0, getString(R.string.text_mod));
+        menu.add(0, v.getId(), 0, getString(R.string.text_sup));
 
     }
 
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
-        if(item.getTitle() == "Appeler")
+        if(item.getTitle() == getString(R.string.text_appel))
         {
             Cursor contact = NDBA.fetchContact(info.id);
             Intent intent = new Intent(Intent.ACTION_DIAL);
             intent.setData(Uri.parse("tel:" + contact.getString(6)));
             startActivity(intent);
         }
-        else if(item.getTitle() == "Envoyer un message")
+        else if(item.getTitle() == getString(R.string.text_envmsg))
         {
             Cursor contact = NDBA.fetchContact(info.id);
             Uri sms_uri = Uri.parse("smsto:"+contact.getString(6));
             Intent sms_intent = new Intent(Intent.ACTION_SENDTO, sms_uri);
             startActivity(sms_intent);
         }
-        else if(item.getTitle() == "Supprimer")
+        else if(item.getTitle() == getString(R.string.text_sup))
         {
             final long contactToDelete = info.id;
             new AlertDialog.Builder(MainActivity.this)
-                    .setMessage("Voulez-vous vraiment supprimer ce contact ?")
+                    .setMessage(getString(R.string.confir_supp))
                     .setTitle("Confirmation")
-                    .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(getString(R.string.rep_oui), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             NDBA.deleteContact(contactToDelete);
-                            Toast.makeText(getApplicationContext(), "Contact supprimé", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), getString(R.string.text_suppcont), Toast.LENGTH_SHORT).show();
                             fillData(typeOfContent);
                         }
                     })
-                    .setNegativeButton("Non", null)
+                    .setNegativeButton("No", null)
                     // Create the AlertDialog object and return it
                     .show();
         }
-        else if(item.getTitle() == "Ajouter aux favorits")
+        else if(item.getTitle() == getString(R.string.add_fav))
         {
             NDBA.setFavoris(info.id);
-            Toast.makeText(getApplicationContext(), "Contact ajouté aux Favoris", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.contact_add), Toast.LENGTH_SHORT).show();
             fillData(typeOfContent);
         }
 
-        else if(item.getTitle() == "Supprimer du favorits")
+        else if(item.getTitle() == getString(R.string.sup_fav))
         {
             NDBA.setDefavoris(info.id);
-            Toast.makeText(getApplicationContext(), "Contact supprimé du Favoris", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.conf_supfav), Toast.LENGTH_SHORT).show();
             fillData(typeOfContent);
         }
 
-        else if(item.getTitle() == "Modifier")
+        else if(item.getTitle() == getString(R.string.text_mod))
         {
             Intent intent = new Intent(MainActivity.this, AddContactActivity.class);
             intent.putExtra("idContact",info.id);

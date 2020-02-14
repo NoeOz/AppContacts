@@ -13,4 +13,19 @@
     <string name="text_envmsg">Enviar mensaje</string>
     <string name="showAllContacts">Ver todos los contactos</string>
     <string name="showFavoritesContacts">Ver favoritos</string>
+    <string name="error_num">Debe de respetar el formato de numero</string>
+    <string name="email_error">Email incorrecto ! exemple : algo@algo.algo</string>
+    <string name="error_champs">Debe al menos cumplir con los campos de Apellido Número de teléfono !</string>
+    <string name="error_corr">Hay errores que debe corregir !</string>
+    <string name="contact_add">Contacto agregado</string>
+    <string name="contact_edit">Contacto editado</string>
+    <string name="add_fav">Agregar a favoritos</string>
+    <string name="sup_fav">Borrar de favoritos</string>
+    <string name="text_mod">Modificar</string>
+    <string name="text_sup">Eliminar</string>
+    <string name="confir_supp">Esta seguro de que quiere borrar el contacto ?</string>
+    <string name="rep_oui">Si</string>
+    <string name="text_suppcont">Contacto eliminado</string>
+    <string name="conf_supfav">Contacto borrado de favoritos</string>
+    <string name="confi_addfav">Contacto agregado a favoritos</string>
 </resources>
