@@ -1,3 +1,6 @@
+/* Membres du groupes :
+        Mohamed Takhchi - Noé Perez - Mohammed Lamtaoui
+ */
 package com.example.contacts;
 
 import android.content.ContentValues;
@@ -23,7 +26,7 @@ public class ContactsDbAdapter {
     private SQLiteDatabase mDb;
 
     /**
-     * Database creation sql statement
+     * Requête de la création de la base de données
      */
     private static final String DATABASE_CREATE =
             "create table contacts (_id integer primary key autoincrement, "
@@ -57,9 +60,7 @@ public class ContactsDbAdapter {
     }
 
     /**
-     * Constructor - takes the context to allow the database to be
-     * opened/created
-     *
+     * Constructeur qui permet a la base de données de s'ouvrir/se créer
      * @param ctx the Context within which to work
      */
     public ContactsDbAdapter(Context ctx)
@@ -68,13 +69,8 @@ public class ContactsDbAdapter {
     }
 
     /**
-     * Open the notes database. If it cannot be opened, try to create a new
-     * instance of the database. If it cannot be created, throw an exception to
-     * signal the failure
-     *
-     * @return this (self reference, allowing this to be chained in an
-     *         initialization call)
-     * @throws SQLException if the database could be neither opened or created
+     * Ouvrir la base de données Contacts, sinon créer une nouvelle
+     * Puis l'instancier
      */
     public ContactsDbAdapter open() throws SQLException {
         mDbHelper = new DatabaseHelper(mCtx);
@@ -82,19 +78,16 @@ public class ContactsDbAdapter {
         return this;
     }
 
+    /**
+     * Fermer la base de données
+     */
     public void close() {
         mDbHelper.close();
     }
 
 
     /**
-     * Create a new note using the title and body provided. If the note is
-     * successfully created return the new rowId for that note, otherwise return
-     * a -1 to indicate failure.
-     *
-     * param title the title of the note
-     * param body the body of the note
-     * return rowId or -1 if failed
+     * Ajouter un nouveau contact
      */
     public long createContact(String prenom, String nom,String email, String tel,String postale,String isfavoris) {
         String name=nom+" "+prenom;
@@ -111,41 +104,38 @@ public class ContactsDbAdapter {
     }
 
     /**
-     * Delete the note with the given rowId
-     *
-     * param rowId id of note to delete
-     * return true if deleted, false otherwise
+     * Supprimer tous les Contacts
      */
     public boolean deleteAllContacts() {
         mDb.execSQL("delete from contacts");
         return true;
     }
 
+    /**
+     * Supprimer un Contact en passant son id en parametre
+     */
     public boolean deleteContact(long rowId) {
         return mDb.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
     }
 
     /**
-     * Return a Cursor over the list of all notes in the database
-     *
-     * @return Cursor over all notes
+     * Retourner un Curseur contenant tous les Contacts de la BD
      */
     public Cursor fetchAllContacts() {
         return mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_PRENOM,
                 KEY_NOM,KEY_NAME,KEY_EMAIL,KEY_POSTALE,KEY_TEL,KEY_FAVORIS}, null, null, null, null, KEY_NOM+","+KEY_PRENOM);
     }
 
+    /**
+     * Retourner un Curseur contenant tous les Contacts Favoris de la BD
+     */
     public Cursor fetchAllFavoritesContacts() {
         return mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_PRENOM,
                 KEY_NOM,KEY_NAME,KEY_EMAIL,KEY_POSTALE,KEY_TEL,KEY_FAVORIS}, KEY_FAVORIS + "=" + 1, null, null, null, KEY_NOM+","+KEY_PRENOM);
     }
 
     /**
-     * Return a Cursor positioned at the note that matches the given rowId
-     *
-     * @param rowId id of note to retrieve
-     * @return Cursor positioned to matching note, if found
-     * @throws SQLException if note could not be found/retrieved
+     * Retourner un Curseur correspondant au Contact dont l'id est passé en paramétres
      */
     public Cursor fetchContact(long rowId) throws SQLException {
 
@@ -162,14 +152,7 @@ public class ContactsDbAdapter {
     }
 
     /**
-     * Update the note using the details provided. The note to be updated is
-     * specified using the rowId, and it is altered to use the title and body
-     * values passed in
-     *
-     * param rowId id of note to update
-     * param title value to set note title to
-     * param body value to set note body to
-     * @return true if the note was successfully updated, false otherwise
+     * Modifier les informations d'un Contact
      */
     public boolean updateContact(long rowId, String prenom, String nom, String tel, String email, String postal) {
         String name=nom+" "+prenom;
@@ -184,6 +167,9 @@ public class ContactsDbAdapter {
         return mDb.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
     }
 
+    /**
+     * Mettre un Conract dans les favoris en mettant le champ isfavoris = 1
+     */
     public boolean setFavoris(long rowId) {
         ContentValues args = new ContentValues();
         args.put(KEY_FAVORIS, 1);
@@ -191,6 +177,9 @@ public class ContactsDbAdapter {
         return mDb.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
     }
 
+    /**
+     * Supprimer un Conract du favoris en mettant le champ isfavoris = 0
+     */
     public boolean setDefavoris(long rowId) {
         ContentValues args = new ContentValues();
         args.put(KEY_FAVORIS, 0);

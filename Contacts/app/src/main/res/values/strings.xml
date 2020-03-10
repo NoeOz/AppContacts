@@ -9,10 +9,10 @@
     <string name="app_add_title">Ajouter contact</string>
     <string name="button_annuler">Annuler</string>
     <string name="text_appel">Appeler</string>
-    <string name="text_envmsg">Envoier message</string>
+    <string name="text_envmsg">Envoyer message</string>
     <string name="showAllContacts">Afficher tous les Contacts</string>
     <string name="showFavoritesContacts">Afficher les Favoris</string>
-    <string name="error_num">Vous devez respecter la forme du Numéro</string>
+    <string name="error_num">Vous devez respecter la forme du Numéro 10 chiffres commence par 0</string>
     <string name="email_error">Email incorrecte ! exemple : qlqchose@qlqchose.qlqchose</string>
     <string name="error_champs">Vous devez au moins renseigner les champs Nom et Numéro de téléphone !</string>
     <string name="error_corr">Il y\'a des erreur que vous devez corriger !</string>

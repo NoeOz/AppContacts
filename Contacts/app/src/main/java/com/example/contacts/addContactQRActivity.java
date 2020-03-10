@@ -1,3 +1,7 @@
+/* Membres du groupes :
+        Mohamed Takhchi - Noé Perez - Mohammed Lamtaoui
+ */
+
 package com.example.contacts;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,7 +43,19 @@ public class addContactQRActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_contact_qr);
 
+        /**
+         * Tester si l'utilisateur a donné son permission pour utiliser la Caméra sinon on le redemande
+         */
+        if (ContextCompat.checkSelfPermission(addContactQRActivity.this, Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_DENIED){
+            ActivityCompat.requestPermissions(addContactQRActivity.this, new String[] {Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_CAMERA);
+        }
+
         cameraView = (SurfaceView) findViewById(R.id.camera_view);
+
+        /**
+         * la fonction qui permet la lecture du QRCode
+         */
         initQR();
     }
 
@@ -58,23 +74,16 @@ public class addContactQRActivity extends AppCompatActivity {
                 .setAutoFocusEnabled(true) //you should add this feature
                 .build();
 
+
         // listener de l'apareil photo
         cameraView.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
 
-                // verifier les permisions d'user pour utiliser l'apareil photo
-                if (ActivityCompat.checkSelfPermission(addContactQRActivity.this, Manifest.permission.CAMERA)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        // verification de la version de ANdroid il faut la M pour montrer
-                        // Dialog solicitation de l'apareil photo
-                        if (shouldShowRequestPermissionRationale(
-                                Manifest.permission.CAMERA)) ;
-                        requestPermissions(new String[]{Manifest.permission.CAMERA},
-                                MY_PERMISSIONS_REQUEST_CAMERA);
-                    }
-                    return;
+                // verifier les permisions d'user pour utiliser l'apareil photo si oui on crée notre caméra
+                if (ContextCompat.checkSelfPermission(addContactQRActivity.this, Manifest.permission.CAMERA)
+                        == PackageManager.PERMISSION_DENIED){
+                    ActivityCompat.requestPermissions(addContactQRActivity.this, new String[] {Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_CAMERA);
                 } else {
                     try {
                         cameraSource.start(cameraView.getHolder());
@@ -110,15 +119,19 @@ public class addContactQRActivity extends AppCompatActivity {
                     // obtnir le token
                     token = barcodes.valueAt(0).displayValue.toString();
 
-                    // verification de toker, il doit pas etre egail à le dernier
-                    // important car on evite d'utiliser le token d'avant
+                    // verification de token
                     if (!token.equals(tokenanterior)) {
 
                         // eregistrer le dernier token
                         tokenanterior = token;
                         Log.i("token", token);
 
-                        //Actions afficer contact deja obtenue
+                        /**
+                         * On a enregistrer les données dans le QRCode en séparant entre les champs par :
+                         * Donc pour avoir nos information on fait un split a la chaine obtenu pour avoir tous les champs
+                         * On passe ces champs en paramétre pour ouvrir une nouvelle activity qui nous permet d'ajouter
+                         * un nouveau contact a partir de ces champs
+                         */
                         String []valeurs = token.split(":");
                         Intent intent = new Intent(addContactQRActivity.this, AddContactActivity.class);
                         intent.putExtra("nomContact",valeurs[0]);
