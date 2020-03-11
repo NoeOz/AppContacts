@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.lang.reflect.Array;
 import java.util.Date;
 
@@ -39,13 +41,14 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView viewEmail;
     private TextView viewPostal;
     private ImageView viewFavorits;
+    FloatingActionButton fabModifier;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.content_profile);
         //Ouvrir la base de données
         NDBA= new ContactsDbAdapter(this);
         NDBA.open();
@@ -56,6 +59,7 @@ public class ProfileActivity extends AppCompatActivity {
         viewEmail = (TextView)findViewById(R.id.email);
         viewPostal = (TextView)findViewById(R.id.adresse);
         viewFavorits = (ImageView)findViewById(R.id.favorits);
+        fabModifier = findViewById(R.id.fabModifier);
 
         //Récupérer l'id du contact envoyé dans les extras de l'intent
         Intent intent = getIntent();
@@ -71,6 +75,19 @@ public class ProfileActivity extends AppCompatActivity {
         email = contact.getString(4);
         postal = contact.getString(5);
         isFavoris = contact.getInt(7);
+
+        /**
+         * Dans cette fonction on ouvre une nouvelle activity en passant l'id du contact en paramétre
+         * l'id va nous aider a récupérer les données du contact dans l'autre activity pour qu'on puisse les modifier
+         */
+        fabModifier.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfileActivity.this, AddContactActivity.class);
+                intent.putExtra("idContact",idContact);
+                startActivity(intent);
+            }
+        });
 
         /**
          * Création du texte du QRCode
@@ -188,13 +205,4 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Dans cette fonction on ouvre une nouvelle activity en passant l'id du contact en paramétre
-     * l'id va nous aider a récupérer les données du contact dans l'autre activity pour qu'on puisse les modifier
-     */
-    public void modifier(View view){
-        Intent intent = new Intent(ProfileActivity.this, AddContactActivity.class);
-        intent.putExtra("idContact",idContact);
-        startActivity(intent);
-    }
 }
