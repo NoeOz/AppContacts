@@ -3,6 +3,7 @@
     package="com.example.contacts">
 
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
 
     <application
@@ -12,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".addContactQRActivity"></activity>
+        <activity android:name=".addContactQRActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".AddContactActivity" />
         <activity
